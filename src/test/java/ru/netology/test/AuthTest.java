@@ -7,6 +7,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.data.DataHelper;
+import ru.netology.page.DashboardPage;
 import ru.netology.page.LoginPage;
 
 import java.sql.DriverManager;
@@ -73,19 +74,6 @@ public class AuthTest {
 
     @AfterAll
     public static void cleanData() throws SQLException {
-        val runner = new QueryRunner();
-        val codes = "DELETE FROM auth_codes";
-        val cards = "DELETE FROM cards";
-        val users = "DELETE FROM users";
-
-        try (
-                val conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
-                )
-        ) {
-            runner.update(conn, codes);
-            runner.update(conn, cards);
-            runner.update(conn, users);
-        }
+        DataHelper.cleanData();
     }
 }
